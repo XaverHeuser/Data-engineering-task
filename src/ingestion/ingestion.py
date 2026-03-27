@@ -1,11 +1,8 @@
 import psycopg
 
+
 conn = psycopg.connect(
-    host="127.0.0.1",
-    port=5433,
-    dbname="task_db",
-    user="admin",
-    password="admin123!"
+    host='127.0.0.1', port=5433, dbname='task_db', user='admin', password='admin123!'
 )
 
 cur = conn.cursor()
