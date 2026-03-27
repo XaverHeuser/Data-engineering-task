@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16
+    container_name: db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=task_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_gui
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
