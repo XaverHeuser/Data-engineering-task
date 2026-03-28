@@ -15,7 +15,7 @@ def connect_to_database():
         port=5433,
         dbname=os.environ.get('POSTGRES_DB'),
         user=os.environ.get('DB_USERNAME'),
-        password='admin123!',
+        password=os.environ.get('DB_PASSWORD'),
     )
     cur = conn.cursor()
 
