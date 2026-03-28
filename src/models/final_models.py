@@ -14,9 +14,7 @@ class BookableUnit(Base):
     date = Column(Date, index=True)
     count_available_bookings = Column(Integer)  # Renamed; From capacity
     count_optional_bookings = Column(Integer)  # Renamed; From capacity
-    feature_bedrooms = Column(
-        Integer
-    )  # From bookings; every product_id has the same feature_1 value
+    feature_bedrooms = Column(Integer)  # every product_id has the same feature_1 value
     updated_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
