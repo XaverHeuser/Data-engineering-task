@@ -9,7 +9,7 @@ def process_ingestion(folder_path: str):
     """This function processes the data ingestion."""
     files = load_data(folder_path)
 
-    ur, conn = connect_to_database()
+    cur, conn = connect_to_database()
 
     for file in files:
         load_data_to_database(file, cur, conn)
