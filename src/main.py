@@ -1,6 +1,6 @@
 from fastapi import BackgroundTasks, FastAPI
 
-from ingestion.ingestion import process_ingestion
+from src.ingestion.ingestion import process_ingestion
 
 
 app = FastAPI()
