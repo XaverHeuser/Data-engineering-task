@@ -1,6 +1,10 @@
 from fastapi import BackgroundTasks, FastAPI
 
 from src.ingestion.ingestion import process_ingestion
+from src.recommendations.recommendations import (
+    calculate_max_recommendation,
+    price_recommendations,
+)
 
 
 app = FastAPI()
@@ -22,10 +26,16 @@ async def start_ingestion(folder_path: str, background_tasks: BackgroundTasks):
 
 
 @app.post('/price-recommendations')
-async def price_recommendation():
-    pass
+async def price_recommendation(background_tasks: BackgroundTasks):
+    """This function calculates the price recommendations."""
+
+    background_tasks.add_task(price_recommendations)
+    return {'status': 'Price recommendations started'}
 
 
 @app.post('/max-recommendation')
-async def max_recommendation():
-    pass
+async def max_recommendation(background_tasks: BackgroundTasks):
+    """This function calculates the maximum recommendations."""
+
+    background_tasks.add_task(calculate_max_recommendation)
+    return {'status': 'Max recommendations started'}
