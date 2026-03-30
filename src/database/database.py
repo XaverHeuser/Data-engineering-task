@@ -18,7 +18,7 @@ def connect_to_database():
             password=os.environ.get('POSTGRES_PASSWORD'),
             connect_timeout=60,
         )
-        print('Successfully connected to the database.')
+        print('Successfully connected to the database')
         cur = conn.cursor()
 
     except Exception as e:

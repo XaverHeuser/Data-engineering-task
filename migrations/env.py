@@ -5,7 +5,7 @@ from alembic import context
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
-from src.models import final_models, staging_models
+from src.models import final_models, recommendation_models, staging_models
 
 
 load_dotenv()
@@ -23,7 +23,11 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [staging_models.Base.metadata, final_models.Base.metadata]
+target_metadata = [
+    staging_models.Base.metadata,
+    final_models.Base.metadata,
+    recommendation_models.Base.metadata,
+]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

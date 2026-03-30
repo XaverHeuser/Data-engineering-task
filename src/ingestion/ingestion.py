@@ -1,4 +1,5 @@
-from .database import close_database_connection, connect_to_database
+from src.database.database import close_database_connection, connect_to_database
+
 from .extraction import extract_data
 from .load import load_data_to_database
 from .transformation import transform_data
