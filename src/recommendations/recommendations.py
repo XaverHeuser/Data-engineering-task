@@ -134,7 +134,7 @@ def calculate_max_recommendation():
 
     except Exception as e:
         print(f'Error fetching max recommendation from database: {e}')
-        return {"error": str(e)}
+        return {'error': str(e)}
 
     finally:
         close_database_connection(cur, conn)
