@@ -8,6 +8,9 @@ from .transformation import transform_data
 def process_ingestion(folder_path: str):
     """This function processes the ingestion of the data to the db."""
     files = extract_data(folder_path)
+    if not files:
+        print('No files found in the given folder path')
+        return
     cur, conn = connect_to_database()
 
     try:
