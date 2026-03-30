@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Float, Integer, String
+from sqlalchemy import BigInteger, Column, Float, Identity, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -8,43 +8,39 @@ Base = declarative_base()
 class StagingBookings(Base):
     __tablename__ = 'staging_bookings'
 
-    id_new = Column(
-        Integer, primary_key=True, index=True
-    )  # new unique id for staging table
-    id = Column(Integer)  # Original id
-    bkg_id = Column(Integer)
-    cust_id = Column(Integer)
-    product_id = Column(String)
-    date = Column(Integer)
+    id = Column(BigInteger)  # Original id -> not unique
+    bkg_id = Column(BigInteger) # Rename
+    cust_id = Column(BigInteger) # Ignore
+    product_id = Column(String, index=True) # Replace with bookable_unit_id
+    date = Column(Integer, index=True) # Replace with bookable_unit_id
     booking_creation_date = Column(Integer)
-    status = Column(String)
-    cancellation_date = Column(Float)
+    status = Column(String) # Drop cancelled bookings
+    cancellation_date = Column(Float) # Drop because of correlation to status
     gross_revenue = Column(Float)
     net_revenue = Column(Float)
     discount_amount = Column(Float)
     base_currency = Column(String)
-    bkg_nights = Column(Integer)
-    feature_1 = Column(String)
-    feature_2 = Column(String)
+    bkg_nights = Column(Integer) # Rename
+    feature_1 = Column(String) # Rename and convert content to int
+    feature_2 = Column(String) # Ignore
+    id_new = Column(BigInteger, Identity(always=False), primary_key=True) # new unique id
 
 
 class StagingCapacity(Base):
     __tablename__ = 'staging_capacity'
 
-    id = Column(Integer, primary_key=True, index=True)
-    product_id = Column(String)
-    calendar_date = Column(Integer)
-    is_bookable = Column(Integer)
-    is_option = Column(Integer)
+    id = Column(String, primary_key=True, index=True) # bookable_unit_id
+    product_id = Column(String, index=True) # first element of bookable_unit_id
+    calendar_date = Column(Integer) # second element of bookable_unit_id; Rename and convert
+    is_bookable = Column(Integer) # Rename
+    is_option = Column(Integer) # Rename
 
 
 class StagingPrices(Base):
     __tablename__ = 'staging_prices'
 
-    id_new = Column(
-        Integer, primary_key=True, index=True
-    )  # new unique id for staging table
-    id = Column(Integer)
-    product_id = Column(String)
+    id = Column(String, index=True)  # bookable_unit_id -> not unique here
+    product_id = Column(String) # Not needed because of bookable_unit_id
     current_price = Column(Float)
-    length_of_stay = Column(String)
+    length_of_stay = Column(String) # String because of XN
+    id_new = Column(BigInteger, Identity(always=False), primary_key=True) # new unique id

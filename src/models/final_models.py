@@ -1,4 +1,13 @@
-from sqlalchemy import Column, Date, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import (
+    BigInteger,
+    Column,
+    Date,
+    DateTime,
+    Float,
+    Identity,
+    Integer,
+    String,
+)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 
@@ -7,27 +16,23 @@ Base = declarative_base()
 
 
 class BookableUnit(Base):
+    # From capacity table
     __tablename__ = 'bookable_units'
 
-    id = Column(Integer, primary_key=True)  # Bookable Unit id
-    product_id = Column(Integer, index=True)
+    id = Column(String, primary_key=True)  # Bookable Unit id
+    product_id = Column(String, index=True)
     date = Column(Date, index=True)
     count_available_bookings = Column(Integer)  # Renamed; From capacity
     count_optional_bookings = Column(Integer)  # Renamed; From capacity
-    feature_bedrooms = Column(Integer)  # every product_id has the same feature_1 value
     updated_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
 class Booking(Base):
+    # From bookings table + bookable_unit (id)
     __tablename__ = 'bookings'
 
-    # TODO: Drop duplicates first
-    id = Column(
-        Integer, primary_key=True, index=True
-    )  # Prüfen, ob selbst vergeben oder übernehmen
-    booking_id = Column(Integer)  # Renamed bkg to booking # TODO: set unique=True?!
-    bookable_unit_id = Column(Integer, ForeignKey('bookable_units.id'))
-
+    booking_id = Column(BigInteger)  # Renamed bkg to booking
+    bookable_unit_id = Column(String, index=True)
     booking_creation_date = Column(Date)  # Convert to Date Object
     status = Column(String)  # Filter out cancelled bookings
     gross_revenue = Column(Float)
@@ -35,16 +40,17 @@ class Booking(Base):
     discount_amount = Column(Float)
     base_currency = Column(String)
     booking_nights = Column(Integer)  # Renamed
+    feature_bedrooms = Column(Integer)  # Renamed feature_1
+    id = Column(BigInteger, Identity(always=False), primary_key=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
 class Price(Base):
+    # From prices table
     __tablename__ = 'prices'
 
-    id = Column(Integer, primary_key=True, index=True)  # Create a new one
-    bookable_unit_id = Column(
-        Integer, ForeignKey('bookable_units.id')
-    )  # Is the original 'id' column
+    bookable_unit_id = Column(String, index=True)  # Is the original 'id' column
     current_price = Column(Float)
     length_of_stay = Column(String)  # String because of XN
+    id = Column(BigInteger, Identity(always=False), primary_key=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now())
