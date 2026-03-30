@@ -29,9 +29,8 @@ def price_recommendations():
     cur, conn = connect_to_database()
 
     # Get data from bookable_units table
-    table_name = 'bookable_units'
     cur.execute(
-        f'SELECT id, product_id, date, count_available_bookings, count_optional_bookings FROM {table_name}'
+        f'SELECT id, product_id, date, count_available_bookings, count_optional_bookings FROM bookable_units'
     )
     data = cur.fetchall()
 
@@ -83,7 +82,7 @@ def price_recommendations():
     )
 
     # Delete existing data in table
-    cur.execute(f'TRUNCATE TABLE {table_name} RESTART IDENTITY')
+    cur.execute(f'TRUNCATE TABLE bookable_units RESTART IDENTITY')
     try:
         output = io.StringIO()
         df_future[COLS_TO_SAVE].to_csv(output, index=False, header=True)
