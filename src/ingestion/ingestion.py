@@ -1,46 +1,30 @@
-from pathlib import Path
-
-import pandas as pd
-
-from .database import connect_to_database
+from .database import close_database_connection, connect_to_database
+from .extraction import extract_data
+from .load import load_data_to_database
+from .transformation import transform_data
 
 
 def process_ingestion(folder_path: str):
-    """This function processes the data ingestion."""
-    files = load_data(folder_path)
-
+    """This function processes the ingestion of the data to the db."""
+    files = extract_data(folder_path)
     cur, conn = connect_to_database()
 
-    for file in files:
-        load_data_to_database(file, cur, conn)
+    try:
+        # Load every file raw data to the db staging tables
+        print(10 * '=')
+        print('Start data loading ...')
+        for file in files:
+            load_data_to_database(file, cur)
+        conn.commit()
+        print('Raw files successfully loaded and committed')
 
-    # conn.commit()
-    # close_database_connection(cur, conn)
-    return
+        # Transform data from staging tables to final tables
+        transform_data(cur)
+        conn.commit()
+        print('Transformation successfully committed')
 
+    except Exception as e:
+        print(f'Error: {e}. Transaction rolled back.')
 
-def load_data(folder_path_str: str):
-    """This function ..."""
-    print(f'Processing folder: {folder_path_str}')
-    clean_path = folder_path_str.strip().strip('"')
-
-    folder_path = Path(clean_path)
-
-    if not folder_path.exists():
-        print(f'Error: The directory {folder_path} does not exist.')
-        return
-
-    files = []
-    folder_path = Path(folder_path_str)
-    for file in folder_path.iterdir():
-        if file.is_file() and file.suffix == '.csv':
-            print(file)
-            files.append(file)
-    print(f'Found {len(files)} CSV files in the directory.')
-    return files
-
-
-def load_data_to_database(file, cur, conn):
-    """This function ..."""
-    df = pd.read_csv(file)
-    print(f'df shape: {df.shape}')
+    finally:
+        close_database_connection(cur, conn)

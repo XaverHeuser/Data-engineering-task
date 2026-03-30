@@ -15,7 +15,7 @@ async def root():
 
 @app.post('/start-ingestion')
 async def start_ingestion(folder_path: str, background_tasks: BackgroundTasks):
-    """This function ..."""
+    """This function starts the ingestion process."""
 
     background_tasks.add_task(process_ingestion, folder_path)
     return {'status': 'Ingestion gestartet', 'path': folder_path}
