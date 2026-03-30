@@ -11,7 +11,8 @@ def process_ingestion(folder_path: str):
 
     try:
         # Load every file raw data to the db staging tables
-        print(10 * '= \nStarting data loading...')
+        print(10 * '=')
+        print('Start data loading ...')
         for file in files:
             load_data_to_database(file, cur)
         conn.commit()

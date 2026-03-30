@@ -1,6 +1,7 @@
 def transform_data(cur):
     """This function includes the trasformation logic."""
-    print(10 * '= \nStarting data transformation...')
+    print(10 * '=')
+    print('Starting data transformation ...')
 
     try:
         # Drop existing data for daily refresh
