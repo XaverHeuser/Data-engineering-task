@@ -9,7 +9,7 @@ Base = declarative_base()
 class Recommendations(Base):
     __tablename__ = 'recommendations'
 
-    bookable_unit_id = Column(String, primary_key=True)  # Is bookable_unit_id
+    id = Column(String, primary_key=True)  # Is bookable_unit_id
     product_id = Column(String, index=True)
     date = Column(Date, index=True)
     count_available_bookings = Column(Integer)

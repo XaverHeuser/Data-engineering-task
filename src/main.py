@@ -33,9 +33,9 @@ async def price_recommendation(background_tasks: BackgroundTasks):
     return {'status': 'Price recommendations started'}
 
 
-@app.post('/max-recommendation')
+@app.get('/max-recommendation')
 async def max_recommendation(background_tasks: BackgroundTasks):
     """This function calculates the maximum recommendations."""
 
-    background_tasks.add_task(calculate_max_recommendation)
-    return {'status': 'Max recommendations started'}
+    max_recommendation = calculate_max_recommendation()
+    return max_recommendation

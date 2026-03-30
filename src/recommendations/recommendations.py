@@ -7,7 +7,7 @@ from src.database.database import close_database_connection, connect_to_database
 
 
 COLS_TO_SAVE = [
-    'bookable_unit_id',
+    'id',
     'product_id',
     'date',
     'count_available_bookings',
@@ -82,7 +82,7 @@ def price_recommendations():
     )
 
     # Delete existing data in table
-    cur.execute('TRUNCATE TABLE bookable_units RESTART IDENTITY')
+    cur.execute('TRUNCATE TABLE recommendations RESTART IDENTITY')
     try:
         output = io.StringIO()
         df_future[COLS_TO_SAVE].to_csv(output, index=False, header=True)
@@ -130,9 +130,11 @@ def calculate_max_recommendation():
         headers = [desc[0] for desc in cur.description]
         max_recommendation = dict(zip(headers, result, strict=False))
         print(f'max_recommendation: {max_recommendation}')
+        return max_recommendation
 
     except Exception as e:
         print(f'Error fetching max recommendation from database: {e}')
+        return {"error": str(e)}
 
     finally:
         close_database_connection(cur, conn)
