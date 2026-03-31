@@ -13,7 +13,7 @@ def load_data_to_database(file, cur):
             column_str = ', '.join(csv_columns)
 
         # Delete existing data in table
-        cur.execute(f'TRUNCATE TABLE {table_name}')  # TODO: Outsource sql?!
+        cur.execute(f'TRUNCATE TABLE {table_name}')
 
         # Copy data from df to table
         with file.open('r', encoding='utf-8') as f:
