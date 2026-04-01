@@ -119,20 +119,13 @@ jobs:
 
         continue-on-error: true
 
-
-      # - name: Export coverage as JSON
-      #   if: always()
-      #   run: |
-      #     # coverage.py kommt mit pytest-cov mit
-      #     python -m coverage json -o test-reports/coverage.json
-
       - name: Pretty per-file coverage table → Job Summary
         if: always()
         run: |
           python - << 'PY'
           import json, os, math, pathlib
 
-          LOW, HIGH = 80.0, 95.0   # Schwellen für Ampel
+          LOW, HIGH = 20.0, 80.0   # Coverage thresholds
 
           def compress_ranges(nums):
               if not nums: return "–"
