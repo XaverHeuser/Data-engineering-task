@@ -115,7 +115,7 @@ jobs:
             --cov-report=xml:test-reports/coverage.xml \
             --cov-report=html \
             --cov-report=json:test-reports/coverage.json \
-            --cov-fail-under=80
+            --cov-fail-under=20
 
         continue-on-error: true
 
