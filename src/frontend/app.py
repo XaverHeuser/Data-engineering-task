@@ -2,16 +2,15 @@ import requests
 import streamlit as st
 
 
-st.title('Streamlit Dashboard')
-
-# Define the API URL (Note: Use 'localhost' for local dev)
 API_URL = 'http://127.0.0.1:8000'
 
 
+st.title('Streamlit Dashboard')
+
+# Start ingestion
 st.subheader('Start ingestion')
 folder_path = st.text_input('Enter folder path: ', '')
 
-# Start ingestion
 if st.button('Start ingestion'):
     if folder_path.strip():
         with st.spinner('Contacting backend...'):
