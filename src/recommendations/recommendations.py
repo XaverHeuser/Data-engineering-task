@@ -106,7 +106,7 @@ def price_recommendations():
 
 
 def calculate_max_recommendation():
-    """This function ..."""
+    """This function calculates the max price recommendation."""
     print(10 * '=')
     print('Start calculating max recommendation ...')
 
