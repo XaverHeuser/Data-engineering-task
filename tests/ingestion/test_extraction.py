@@ -18,7 +18,6 @@ class TestExtractionClass:
 
         assert expected_message in captured.out
 
-
     def test_extraction_no_files_in_folder(self, tmp_path, capsys):
         """Test function if no csv files in folder."""
         # Create empty folder
@@ -31,7 +30,6 @@ class TestExtractionClass:
         captured = capsys.readouterr()
         expected_message = 'Found 0 CSV files in the directory.'
         assert expected_message in captured.out
-
 
     def test_extraction(self, tmp_path, capsys):
         """Test function if everything is as expected."""
