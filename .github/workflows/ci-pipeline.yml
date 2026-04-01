@@ -114,16 +114,17 @@ jobs:
             --cov-report=term-missing \
             --cov-report=xml:test-reports/coverage.xml \
             --cov-report=html \
+            --cov-report=json:test-reports/coverage.json \
             --cov-fail-under=80
 
         continue-on-error: true
 
 
-      - name: Export coverage as JSON
-        if: always()
-        run: |
-          # coverage.py kommt mit pytest-cov mit
-          python -m coverage json -o test-reports/coverage.json
+      # - name: Export coverage as JSON
+      #   if: always()
+      #   run: |
+      #     # coverage.py kommt mit pytest-cov mit
+      #     python -m coverage json -o test-reports/coverage.json
 
       - name: Pretty per-file coverage table → Job Summary
         if: always()
