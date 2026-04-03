@@ -2,7 +2,7 @@ import csv
 
 
 def load_data_to_database(file, cur):
-    """This function ..."""
+    """This function loads the csv data to the database."""
     table_name = 'staging_' + file.stem.split('_')[1]
     print(f'Loading data into table: {table_name}')
 
