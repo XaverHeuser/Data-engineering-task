@@ -6,5 +6,5 @@ psycopg==3.3.3
 psycopg-binary==3.3.3
 psycopg-pool==3.3.0
 sqlalchemy==2.0.48
-streamlit==1.55.0
+streamlit==1.56.0
 uvicorn==0.42.0
