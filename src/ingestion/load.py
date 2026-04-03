@@ -3,7 +3,9 @@ import csv
 
 def load_data_to_database(file, cur):
     """This function loads the csv data to the database."""
-    table_name = 'staging_' + (file.stem.split('_')[1] if '_' in file.stem else file.stem)
+    table_name = 'staging_' + (
+        file.stem.split('_')[1] if '_' in file.stem else file.stem
+    )
     print(f'Loading data into table: {table_name}')
 
     try:
