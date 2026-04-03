@@ -30,7 +30,7 @@ Beispielhaft wurde für die maximale Kapazität pro buchbarer Einheit *der maxim
 
 ### Installation
 
-- Repo clonen: ```git clone https://github.com/XaverHeuser/Aufgabe-data-engineering.git```
+- Repo clonen: ```git clone https://github.com/XaverHeuser/Data-engineering-task.git```
 - venv erstellen: ````python -m venv .venv```
 - Packages installieren: ```pip install -r requirements.txt``` (Für dev auch: ```pip install -r requirements-dev.txt```)
 - env erstellen und Variablen ersetzen
