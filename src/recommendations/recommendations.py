@@ -78,7 +78,10 @@ def price_recommendations():
 
     # Apply formula for price adjustment
     df_future['price_adjustment_pct'] = (
-        0.15 * (df_future['occupancy_rate'] - 0.5) * (0.5 + df_future['days_factor'])
+        0.15
+        * (df_future['occupancy_rate'] - 0.5)
+        * (0.5 + df_future['days_factor'])
+        * 100
     )
 
     # Delete existing data in table
