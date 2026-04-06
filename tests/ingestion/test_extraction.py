@@ -1,4 +1,3 @@
-# TODO: Add tests to git workflow
 from pathlib import Path
 
 from src.ingestion.extraction import extract_data
